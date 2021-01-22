@@ -17,7 +17,7 @@ node_modules
 # Ignore built files
 build
 
-# ignore test converage
+# ignore test coverage
 coverage
 
 # Environment varibles

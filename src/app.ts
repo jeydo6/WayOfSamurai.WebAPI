@@ -6,6 +6,8 @@ import Logger from './core/Logger';
 import { NotFoundError, ApiError, InternalError } from './core/ApiError';
 import { corsUrl, environment } from './config';
 
+import './database';
+
 process.on('uncaughtException', (e) => {
     Logger.error(e);
 });
