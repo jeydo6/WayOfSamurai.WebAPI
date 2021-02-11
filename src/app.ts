@@ -13,10 +13,6 @@ process.on('uncaughtException', (e) => {
     Logger.error(e);
 });
 
-// process.on('unhandledRejection', (r, p) => {
-//     Logger.error('unhandledRejection:', p, 'reason:', r);
-// });
-
 const app = express();
 
 app.use(bodyParser.json({ limit: '10mb' }));
@@ -26,15 +22,19 @@ app.use(cors({ origin: corsUrl, optionsSuccessStatus: 200 }));
 app.use('/', routes);
 
 // catch 404 and forward to error handler
-app.use((_req: Request, _res: Response, next: NextFunction) => next(new NotFoundError()));
+app.use((_req: Request, _res: Response, next: NextFunction) => {
+    return next(new NotFoundError());
+});
 
-app.use((err: Error, _req: Request, res: Response) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
     if (err instanceof ApiError) {
         ApiError.handle(err, res);
     } else {
         if (environment === 'development') {
             Logger.error(err);
-            return res.status(500).send(err.message);
+            //return res.status(500).send(err.message);
+            ApiError.handle(new InternalError(err.message), res);
         }
         ApiError.handle(new InternalError(), res);
     }

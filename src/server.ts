@@ -4,4 +4,4 @@ import app from './app';
 
 app.listen(port, () => {
     Logger.info(`server running in port: ${port}`);
-}).on('error', (e) => Logger.error(e));
+}).on('error', (err) => Logger.error(err));
