@@ -1,12 +1,14 @@
 import { model, Schema, Document } from 'mongoose';
 
-export const DOCUMENT_NAME = 'User';
-export const COLLECTION_NAME = 'users';
-
 export default interface IUser extends Document {
     email: string;
+
     password?: string;
 }
+
+export const DOCUMENT_NAME = 'User';
+
+export const COLLECTION_NAME = 'users';
 
 const schema = new Schema({
     email: {
