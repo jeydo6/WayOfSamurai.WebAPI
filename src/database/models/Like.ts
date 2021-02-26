@@ -8,10 +8,6 @@ export default interface ILike extends Document {
     author: IUser;
 }
 
-export const DOCUMENT_NAME = 'Like';
-
-export const COLLECTION_NAME = 'likes';
-
 const schema = new Schema({
     value: {
         type: Schema.Types.Number,
@@ -25,4 +21,4 @@ const schema = new Schema({
     },
 });
 
-export const LikeModel = model<ILike>(DOCUMENT_NAME, schema, COLLECTION_NAME);
+export const LikeModel = model<ILike>('Like', schema, 'likes');

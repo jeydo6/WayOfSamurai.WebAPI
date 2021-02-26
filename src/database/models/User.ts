@@ -6,10 +6,6 @@ export default interface IUser extends Document {
     password?: string;
 }
 
-export const DOCUMENT_NAME = 'User';
-
-export const COLLECTION_NAME = 'users';
-
 const schema = new Schema({
     email: {
         type: Schema.Types.String,
@@ -23,4 +19,4 @@ const schema = new Schema({
     },
 });
 
-export const UserModel = model<IUser>(DOCUMENT_NAME, schema, COLLECTION_NAME);
+export const UserModel = model<IUser>('User', schema, 'users');

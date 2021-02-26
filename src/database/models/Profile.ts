@@ -1,26 +1,38 @@
 import { model, Schema, Document } from 'mongoose';
 
 import IPost from './Post';
+import IUser from './User';
 
 export default interface IProfile extends Document {
+    name: string;
+
     status?: string;
 
     photo?: Buffer;
 
-    posts?: IPost[];
+    user: IUser;
+
+    posts: IPost[];
 }
 
-export const DOCUMENT_NAME = 'Profile';
-
-export const COLLECTION_NAME = 'profiles';
-
 const schema = new Schema({
+    name: {
+        type: Schema.Types.String,
+        trim: true,
+    },
     status: {
         type: Schema.Types.String,
         trim: true,
     },
     photo: {
         type: Schema.Types.Buffer,
+    },
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+        index: true,
+        unique: true,
     },
     posts: {
         type: [
@@ -32,4 +44,4 @@ const schema = new Schema({
     },
 });
 
-export const ProfileModel = model<IProfile>(DOCUMENT_NAME, schema, COLLECTION_NAME);
+export const ProfileModel = model<IProfile>('Profile', schema, 'profiles');

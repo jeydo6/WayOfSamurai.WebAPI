@@ -1,16 +1,15 @@
 import { model, Schema, Document } from 'mongoose';
 
+import ILike from './Like';
 import IUser from './User';
 
 export default interface IPost extends Document {
     text: string;
 
     author: IUser;
+
+    likes: ILike[];
 }
-
-export const DOCUMENT_NAME = 'Post';
-
-export const COLLECTION_NAME = 'posts';
 
 const schema = new Schema({
     text: {
@@ -32,4 +31,4 @@ const schema = new Schema({
     ],
 });
 
-export const PostModel = model<IPost>(DOCUMENT_NAME, schema, COLLECTION_NAME);
+export const PostModel = model<IPost>('Post', schema, 'posts');
