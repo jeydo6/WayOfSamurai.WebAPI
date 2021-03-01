@@ -25,6 +25,20 @@ router.get(
     }),
 );
 
+router.get(
+    '/user/:userId',
+    asyncHandler(async (req: Request, res: Response) => {
+        if (!req.params.userId) throw new BadRequestError('UserID is empty');
+
+        const userId = new Types.ObjectId(req.params.userId);
+        const profile = await ProfilesRepository.findByUserId(userId);
+
+        if (!profile) throw new BadRequestError('Profile not found!');
+
+        return new SuccessResponse('success', profile).send(res);
+    }),
+);
+
 router.post(
     '/',
     asyncHandler(async (req: Request, res: Response) => {
